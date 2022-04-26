@@ -81,8 +81,6 @@ def delete_bucket(bucket_name):
         response = s3.delete_bucket(Bucket=bucket_name)
         print("Deleted")
         print(response)
-    
-
     except ClientError:
         print("BUcket does not exist")
         return False

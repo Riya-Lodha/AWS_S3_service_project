@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, send_file,jsonify
+from flask import Flask, render_template, request, redirect, send_file,jsonify,json
 import os
 # from Miniproject1.s3_func import create_bucket,list_buckets,upload_file,delete_bucket
 from s3_func import create_bucket,list_buckets,upload_file,delete_bucket,download_file,list_files
@@ -30,10 +30,10 @@ def create1():
 def list_b():
     if request.method == "GET":
         res=list_buckets()
-    # return jsonify(res['Buckets'][10]['Name'])
-    # result=jsonify(res)
-    # render_template('list_bucket.html',result=result)
-        return jsonify(res)
+    # return jsonify(res['Buckets'][0]['Name'])
+        result=jsonify(res)
+        # return render_template('list_bucket.html',result=result)
+        return result
 
 
 
@@ -91,8 +91,11 @@ def delete_b():
         name=request.form['name']
         
         result=delete_bucket(name)
-        
-        return '<h1>Bucket Deleted</h1>'
+
+        if result == "True":
+            return '<h1>Bucket Deleted</h1>'
+        else:
+            return '<h1>Bucket does not exist</h1>'
         
 
 
